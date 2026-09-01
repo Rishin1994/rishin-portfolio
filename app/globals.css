@@ -887,6 +887,11 @@ button.spotlight-surface {
   scroll-snap-align: center;
 }
 
+.case-slide .case-card-link {
+  margin-top: 18px;
+  align-self: flex-start;
+}
+
 .case-watermark {
   position: absolute;
   top: 12px;
