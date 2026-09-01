@@ -10,7 +10,6 @@ export const contact = {
   linkedin: "",
   github: "https://github.com/Rishin1994",
   resume: "/Rishin-S-Pradeep-Resume.pdf",
-  /** Optional — render buttons only when non-empty. */
   website: "",
   calendarUrl: "",
   photo: "",
@@ -34,15 +33,11 @@ export const navLinks = [
   { href: "/#contact", label: "Contact" },
 ] as const;
 
-/** Freeze years at 9 (Jun 2017–present). Do not invent daily-event volume. */
+/** Freeze years at 9 (Jun 2017–present). */
 export const heroStats = [
   { value: 9, suffix: "+", label: "Years in data architecture" },
   { value: 3, suffix: "", label: "Fortune-scale migrations led" },
-  {
-    value: 70,
-    suffix: "+",
-    label: "Engineers in coalitions led",
-  },
+  { value: 70, suffix: "+", label: "Engineers in coalitions led" },
 ] as const;
 
 /** 60% / 70% are from the same retail dbt governance program. */
@@ -138,6 +133,11 @@ export type CaseStudy = {
   year?: string;
   diagram?: string;
   repoUrl?: string;
+  context?: string;
+  constraint?: string;
+  decisions?: readonly { title: string; why: string }[];
+  weeklyShip?: readonly { week: string; shipped: string }[];
+  repeatNext?: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -158,6 +158,48 @@ export const caseStudies: CaseStudy[] = [
     employer: "Quantiphi",
     year: "2025",
     diagram: "/diagrams/crm-migration.svg",
+    context:
+      "On the global CRM/SaaS program at Quantiphi I sat as Senior Data Architect — owning the target Snowflake + Data Vault shape while platform engineers owned pipeline code and the analytics squad owned dashboard cutover. My job was the path that kept both sides honest: no silent schema drift, no hero weekend cutover.",
+    constraint:
+      "Finance and revenue reporting could not go dark. Quarter-end dashboards had a hard SLA window. Rollback had to be a rehearsed switch, not a hope. The Exasol estate still had to serve production until Snowflake proved parity on the core marts.",
+    decisions: [
+      {
+        title: "Data Vault 2.0 hubs / links / satellites over a flat dimensional dump",
+        why: "CRM entities change keys and relationships constantly. Vault absorbed source volatility so marts could stay stable for finance while source systems kept evolving underneath.",
+      },
+      {
+        title: "Six-week parallel run with idempotent loads from external stages",
+        why: "Python orchestration + Snowflake stages replayed the same business day until row counts, hash totals, and dashboard KPIs matched. Cutover became a flag flip, not a migration weekend.",
+      },
+      {
+        title: "GitHub Actions CI with dry-run promote and a documented rollback window",
+        why: "Every model and load job had to be redeployable. If parity slipped after go-live, we could pin traffic back to Exasol inside the rollback window without rewriting history.",
+      },
+    ],
+    weeklyShip: [
+      {
+        week: "Week 1–2",
+        shipped:
+          "Source inventory, critical dashboard map, warehouse sizing baseline, and a written cutover risk register for finance stakeholders.",
+      },
+      {
+        week: "Week 3–4",
+        shipped:
+          "Hub/link/sat skeletons, external stage contracts, and the first idempotent historical load path with row-count + hash checks.",
+      },
+      {
+        week: "Week 5–8",
+        shipped:
+          "Parallel-run automation, Slim promotion gates in GitHub Actions, and dashboard parity packs for the revenue marts.",
+      },
+      {
+        week: "Cutover window",
+        shipped:
+          "Go-live with reporting still live, 10B+ records on Snowflake, and runbooks handed to the platform squad.",
+      },
+    ],
+    repeatNext:
+      "Start with the reporting SLA and the rollback story before touching warehouses. Parallel run is the product — migration code is just how you earn it.",
   },
   {
     id: "retail-dbt",
@@ -176,6 +218,48 @@ export const caseStudies: CaseStudy[] = [
     employer: "Tredence",
     year: "2021–2024",
     diagram: "/diagrams/retail-dbt.svg",
+    context:
+      "On the retail analytics estate at Tredence I was the Data Architect stitching platform and analytics squads together. Platform owned Snowflake warehouses and Airflow; analytics owned 350+ dbt models that had grown without a shared contract. I owned the model layering, Slim CI, and the operating rhythm that made deploys boring again.",
+    constraint:
+      "The nightly SLA window was non-negotiable — merchandising and finance needed morning dashboards. We could not freeze feature work for a three-month rewrite. Governance had to ship as incremental rails, not a big-bang rewrite.",
+    decisions: [
+      {
+        title: "Strict staging → intermediate → marts layering with ownership tags",
+        why: "Ended cross-squad circular refs. Staging stayed source-faithful; intermediate held business logic; marts stayed thin and Power BI–friendly.",
+      },
+      {
+        title: "Slim CI + source freshness + test gates on every PR",
+        why: "Pull requests only built the subgraph that changed. Broken freshness and failed tests blocked merge before they burned the nightly window.",
+      },
+      {
+        title: "Warehouse auto-suspend / auto-scale profiles by workload class",
+        why: "Ad-hoc analyst traffic stopped competing with the nightly batch. Incremental models and clustering pruned micro-partitions so the same SLA finished earlier.",
+      },
+    ],
+    weeklyShip: [
+      {
+        week: "Week 1",
+        shipped:
+          "Model inventory, blast-radius map, and a written materialization standard the squads could argue with.",
+      },
+      {
+        week: "Week 2–3",
+        shipped:
+          "Layer migration for the hottest marts, Slim CI in dbt Cloud, and source freshness contracts on the critical feeds.",
+      },
+      {
+        week: "Week 4–6",
+        shipped:
+          "Warehouse workload profiles, incremental rebuilds, and incident postmortems wired into the PR checklist.",
+      },
+      {
+        week: "Steady state",
+        shipped:
+          "60% faster runs and 70% fewer production incidents on the same program — deploys stopped being a coin flip.",
+      },
+    ],
+    repeatNext:
+      "Publish the layer contract and CI gates before rewriting models. Speed comes from stopping bad merges, not from heroic overnight rebuilds.",
   },
   {
     id: "azure-modernization",
@@ -194,6 +278,48 @@ export const caseStudies: CaseStudy[] = [
     employer: "Infosys",
     year: "2017–2021",
     diagram: "/diagrams/azure-finance.svg",
+    context:
+      "On the enterprise finance warehouse at Infosys I moved from hands-on engineering into senior ownership of the Synapse estate. Finance stakeholders needed trustworthy numbers; the platform team needed automation; security needed RBAC that would survive audit. I owned the distribution design, ADF incremental pattern, and the cost/performance scoreboard leadership watched.",
+    constraint:
+      "Cloud-first was a C-suite mandate, but finance close cycles could not slip. Manual ETL windows were already eating overnight capacity. Row-level security had to land without breaking Power BI semantic models the controllers already trusted.",
+    decisions: [
+      {
+        title: "Distribution keys and indexed SQL tuned to the actual join graph",
+        why: "Skewed distributions were burning DWU on reshuffles. Aligning distribution with the finance grain removed the worst shuffle tax and unlocked the 4× query path.",
+      },
+      {
+        title: "ADF incremental loads with watermarking instead of full reloads",
+        why: "Nightly full copies were the cost problem. Incremental pipelines cut volume, shortened windows, and made failures local instead of catastrophic.",
+      },
+      {
+        title: "Row-level security + Terraform-managed observability",
+        why: "Audit needed least-privilege access and proof of control. RLS plus pipeline/cost dashboards made the 99.9% SLA and the 25% bill reduction visible to finance and platform together.",
+      },
+    ],
+    weeklyShip: [
+      {
+        week: "Week 1–2",
+        shipped:
+          "Query + skew forensic, DWU baseline, and a written redesign for the top finance subject areas.",
+      },
+      {
+        week: "Week 3–5",
+        shipped:
+          "Redistributed fact tables, ADF incremental patterns, and Power BI regression packs for controllers.",
+      },
+      {
+        week: "Week 6–8",
+        shipped:
+          "RLS rollout, Terraform-managed alerts, and a cost/performance board leadership reviewed weekly.",
+      },
+      {
+        week: "Steady state",
+        shipped:
+          "4× query speed, 25% lower cloud spend, 99.9% SLA sustained over 12 months, audit cleared on first review.",
+      },
+    ],
+    repeatNext:
+      "Measure skew and reload volume before buying more DWU. Distribution and incremental design usually buy more than another scale tier.",
   },
 ];
 
@@ -257,12 +383,12 @@ export const faqs = [
   {
     question: "How do you contract for US companies?",
     answer:
-      "I'm available as an independent contractor for remote US work. W-8BEN and related tax paperwork are available on request.",
+      "I contract as an independent contractor for remote US work. Engagements are usually 3–6 months with a written SOW: scope, weekly cadence, and exit criteria. W-8BEN and related tax paperwork are ready on request so procurement is not guessing.",
   },
   {
     question: "How do you work day to day with a US team?",
     answer:
-      "Architecture decisions and implementation happen in the same engagement. I ship weekly written increments, and I keep practical US-hours overlap from Bengaluru for standups, design reviews, and stakeholder calls.",
+      "Architecture decisions and implementation stay in the same engagement — no handoff gap. Typical rhythm: overlapping standup or design review, async updates in writing, and a Friday note of what shipped vs. what is blocked. From Bengaluru I cover practical US morning hours so finance and engineering stakeholders can still get live answers.",
   },
 ] as const;
 
@@ -329,30 +455,51 @@ export const publicWork = [
   },
 ] as const;
 
-export const aboutBio = `I'm Rishin — a Senior Data Architect available for remote US contracts. I make architecture decisions and implement them myself: migrations, FinOps, governed dbt estates, and platform leadership for teams that cannot afford a handoff gap between strategy and code.
+export const aboutBio = `I'm Rishin — a Senior Data Architect available for remote US contracts. I make the architecture call and implement it: Snowflake migrations, dbt governance, Azure modernization, FinOps guardrails, and the weekly delivery rhythm that keeps stakeholders calm.
 
-I've led architecture for a 70-member global data engineering coalition at Quantiphi, modernized retail analytics platforms at Tredence, and rebuilt finance warehouses at Infosys. I work in weekly increments, write tradeoffs down, and leave teams owning the result.`;
+I've led architecture for a 70+ engineer coalition on a global CRM/SaaS program at Quantiphi, governed retail analytics estates at Tredence, and rebuilt enterprise finance warehouses at Infosys. If your team cannot afford a handoff gap between strategy and code, that is the work I sell.`;
+
+export const firstThirtyDays = [
+  {
+    week: "Week 1",
+    title: "Diagnose",
+    detail:
+      "Inventory warehouses, pipelines, spend, and the dashboards that cannot go dark. Leave you a written risk register — quick wins vs. structural fixes — not a deck of aspirations.",
+  },
+  {
+    week: "Week 2",
+    title: "Written tradeoffs",
+    detail:
+      "Target-state sketch with model layers, tooling choices, cutover or CI options, and cost implications. Every decision has a why your CFO and your tech lead can both argue with.",
+  },
+  {
+    week: "Week 3–4",
+    title: "First increment in prod",
+    detail:
+      "Ship something real: a Slim CI gate, an incremental load path, a parallel-run check, or a warehouse right-size with observability. Proof beats roadmap slides.",
+  },
+] as const;
 
 export const employerTimeline = [
   {
     company: "Quantiphi",
     role: "Senior Data Architect",
-    period: "2025–present",
+    period: "08/2025–Present",
     summary:
-      "Architecture leadership for large-scale CRM/SaaS migration programs — Snowflake, Data Vault 2.0, zero-downtime cutover paths.",
+      "Architecture leadership on a global CRM/SaaS program — Snowflake, Data Vault 2.0, parallel-run cutovers, and guidance across a 70+ engineer coalition.",
   },
   {
     company: "Tredence",
     role: "Data Architect",
-    period: "2021–2024",
+    period: "12/2021–12/2024",
     summary:
-      "Governed dbt estates, retail analytics platforms, and delivery patterns for squads shipping under SLA pressure.",
+      "Governed 350+ dbt models on retail analytics estates — Slim CI, layer contracts, warehouse workload profiles, and SLA-safe nightly runs.",
   },
   {
     company: "Infosys",
-    role: "Data Engineer → Senior roles",
-    period: "2017–2021",
+    role: "Data Engineer → Senior",
+    period: "06/2017–12/2021",
     summary:
-      "Azure warehouse modernization, performance and cost work, and production platforms for enterprise finance.",
+      "Enterprise finance warehouse modernization on Azure Synapse — distribution design, ADF incremental loads, RLS, and sustained 99.9% SLA.",
   },
 ] as const;

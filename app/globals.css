@@ -1879,6 +1879,111 @@ button.spotlight-surface {
   margin-top: 36px;
 }
 
+.work-card-diagram {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  aspect-ratio: 720 / 280;
+}
+
+.work-card-diagram img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-card-meta {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--acid);
+}
+
+.case-narrative {
+  margin: 28px 0;
+}
+
+.case-narrative h2 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 400;
+  margin: 0 0 12px;
+}
+
+.case-narrative p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 72ch;
+}
+
+.decision-list,
+.weekly-list,
+.thirty-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.decision-list li,
+.weekly-list li,
+.thirty-list li {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.decision-list p,
+.weekly-list p,
+.thirty-list p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.weekly-label,
+.thirty-week {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--acid);
+  margin-bottom: 6px;
+}
+
+.thirty-list li {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+}
+
+.about-thirty,
+.about-cta {
+  padding: 24px 0 48px;
+}
+
+.about-thirty h2 {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
+  margin: 0 0 12px;
+}
+
+.about-thirty-lead {
+  max-width: 60ch;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+.about-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .case-diagram {
   margin: 28px 0;
   border: 1px solid var(--line);
@@ -1922,7 +2027,8 @@ button.spotlight-surface {
   .case-grid,
   .public-proof-grid,
   .site-footer,
-  .timeline-list li {
+  .timeline-list li,
+  .thirty-list li {
     grid-template-columns: 1fr;
   }
   .service-stage-divider { display: none; }

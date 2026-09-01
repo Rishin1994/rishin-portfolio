@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
-import { contact, hasValue, heroStats } from "../data/portfolio";
+import { contact, heroStats } from "../data/portfolio";
 
 export function ScrollProgress() {
   const [progress, setProgress] = useState(0);
@@ -26,12 +26,6 @@ export function ScrollProgress() {
 }
 
 export function Hero() {
-  const primaryHref = hasValue(contact.calendarUrl)
-    ? contact.calendarUrl
-    : `mailto:${contact.email}?subject=US%20contract%20opportunity`;
-  const primaryLabel = hasValue(contact.calendarUrl) ? "Book 20 minutes" : "Email Rishin";
-  const primaryExternal = hasValue(contact.calendarUrl);
-
   return (
     <section className="hero shell" id="top">
       <div className="hero-content is-mounted">
@@ -58,23 +52,13 @@ export function Hero() {
         <div className="hero-actions reveal" style={{ "--delay": "0.46s" } as CSSProperties}>
           <a
             className="button button-primary magnetic"
-            href={primaryHref}
-            {...(primaryExternal ? { target: "_blank", rel: "noreferrer" } : {})}
+            href={`mailto:${contact.email}?subject=US%20contract%20opportunity`}
           >
-            {primaryLabel} <span aria-hidden="true">↗</span>
+            Email me <span aria-hidden="true">↗</span>
           </a>
-          {hasValue(contact.calendarUrl) ? (
-            <a
-              className="button button-ghost magnetic"
-              href={`mailto:${contact.email}?subject=US%20contract%20opportunity`}
-            >
-              Email Rishin
-            </a>
-          ) : (
-            <Link className="button button-ghost magnetic" href="/work">
-              See the proof <span aria-hidden="true">↓</span>
-            </Link>
-          )}
+          <Link className="button button-ghost magnetic" href="/work">
+            See selected work <span aria-hidden="true">→</span>
+          </Link>
         </div>
 
         <div className="hero-stats reveal" style={{ "--delay": "0.58s" } as CSSProperties}>

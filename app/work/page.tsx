@@ -19,8 +19,8 @@ export default function WorkIndexPage() {
         <p className="section-number is-visible">Work</p>
         <h1>Selected engagements.</h1>
         <p>
-          Problem → Approach → Result across CRM migration, retail dbt governance, and finance
-          warehouse modernization.
+          Three Fortune-scale programs — CRM migration at Quantiphi, retail dbt governance at
+          Tredence, finance warehouse modernization at Infosys.
         </p>
       </section>
 
@@ -32,14 +32,27 @@ export default function WorkIndexPage() {
                 <span className="case-industry">{study.industry}</span>
                 <span className="case-index">0{index + 1}</span>
               </div>
+
+              {study.diagram ? (
+                <div className="work-card-diagram">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={study.diagram} alt="" />
+                </div>
+              ) : null}
+
               <div className="case-metric-display">
                 <strong>{study.metric}</strong>
                 <span>{study.metricLabel}</span>
               </div>
+
+              <p className="work-card-meta">
+                {[study.employer, study.year].filter(Boolean).join(" · ")}
+              </p>
+
               <h2>{study.title}</h2>
               <p className="case-card-excerpt">{study.result}</p>
               <Link className="case-card-link" href={`/work/${study.id}`}>
-                Read case study <span aria-hidden="true">↗</span>
+                Read the full pitch <span aria-hidden="true">↗</span>
               </Link>
             </article>
           ))}

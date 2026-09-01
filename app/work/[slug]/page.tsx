@@ -53,6 +53,27 @@ export default async function CaseStudyPage({ params }: PageProps) {
           )}
         </div>
 
+        {study.diagram ? (
+          <figure className="case-diagram">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={study.diagram} alt={`Architecture diagram for ${study.title}`} />
+          </figure>
+        ) : null}
+
+        {study.context ? (
+          <section className="case-narrative">
+            <h2>Context</h2>
+            <p>{study.context}</p>
+          </section>
+        ) : null}
+
+        {study.constraint ? (
+          <section className="case-narrative">
+            <h2>Constraint</h2>
+            <p>{study.constraint}</p>
+          </section>
+        ) : null}
+
         <div className="case-par-grid case-detail-par">
           <div className="case-par">
             <span>Problem</span>
@@ -68,18 +89,46 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </div>
         </div>
 
+        {study.decisions?.length ? (
+          <section className="case-narrative">
+            <h2>Three architecture decisions</h2>
+            <ol className="decision-list">
+              {study.decisions.map((decision) => (
+                <li key={decision.title}>
+                  <strong>{decision.title}</strong>
+                  <p>{decision.why}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null}
+
+        {study.weeklyShip?.length ? (
+          <section className="case-narrative">
+            <h2>What shipped by week</h2>
+            <ol className="weekly-list">
+              {study.weeklyShip.map((item) => (
+                <li key={item.week}>
+                  <span className="weekly-label">{item.week}</span>
+                  <p>{item.shipped}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null}
+
+        {study.repeatNext ? (
+          <section className="case-narrative">
+            <h2>What I would repeat on the next contract</h2>
+            <p>{study.repeatNext}</p>
+          </section>
+        ) : null}
+
         <div className="tag-list">
           {study.stack.map((tech) => (
             <span key={tech}>{tech}</span>
           ))}
         </div>
-
-        {study.diagram ? (
-          <figure className="case-diagram">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={study.diagram} alt={`Architecture diagram for ${study.title}`} />
-          </figure>
-        ) : null}
 
         {study.repoUrl ? (
           <p className="case-repo">
@@ -94,7 +143,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             className="button button-primary magnetic"
             href={`mailto:${contact.email}?subject=${subject}`}
           >
-            Discuss a similar problem <span aria-hidden="true">↗</span>
+            Email me about a similar problem <span aria-hidden="true">↗</span>
           </a>
           <Link className="button button-ghost magnetic" href="/work">
             All work
