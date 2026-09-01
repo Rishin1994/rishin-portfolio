@@ -1204,36 +1204,53 @@ button.spotlight-surface {
 
 /* ── Testimonials ── */
 
-.testimonial-stage {
-  position: relative;
-  min-height: 260px;
+.testimonial-lead {
+  margin: 12px auto 0;
+  max-width: 42ch;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.testimonial-carousel-wrap {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
 }
 
-.testimonial-stage.is-visible {
+.testimonial-carousel-wrap.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.testimonial-stage .testimonial-card {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: translateY(12px) scale(0.98);
-  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
-  pointer-events: none;
+.testimonial-carousel-wrap::-webkit-scrollbar {
+  display: none;
 }
 
-.testimonial-card.is-active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+.testimonial-carousel-wrap:active {
+  cursor: grabbing;
 }
 
-.testimonial-card .spotlight-surface-content {
+.testimonial-carousel {
+  display: flex;
+  gap: 20px;
+  padding: 8px max(24px, calc((100vw - 1280px) / 2 + 24px)) 4px;
+  width: max-content;
+}
+
+.testimonial-slide .spotlight-surface-content {
   padding: 40px;
+  width: min(640px, 86vw);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  scroll-snap-align: center;
 }
 
 .testimonial-quote {
@@ -1245,12 +1262,12 @@ button.spotlight-surface {
   letter-spacing: -0.02em;
 }
 
-.testimonial-card footer strong {
+.testimonial-slide footer strong {
   display: block;
   font-size: 14px;
 }
 
-.testimonial-card footer span {
+.testimonial-slide footer span {
   font-size: 13px;
   color: var(--muted);
 }
@@ -1258,24 +1275,42 @@ button.spotlight-surface {
 .testimonial-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 24px;
 }
 
 .testimonial-dots button {
-  width: 28px;
-  height: 3px;
-  padding: 0;
-  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 28px;
+  height: auto;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  background: var(--line-strong);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
   cursor: pointer;
-  transition: background 250ms, width 250ms;
+  transition: border-color 250ms, background 250ms, color 250ms;
+}
+
+.testimonial-dots button:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
 }
 
 .testimonial-dots button.is-active {
-  width: 44px;
-  background: var(--acid);
+  border-color: rgba(201, 255, 61, 0.45);
+  background: rgba(201, 255, 61, 0.08);
+  color: var(--acid);
+}
+
+.testimonial-dot-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 /* ── FAQ ── */
@@ -1908,7 +1943,7 @@ button.spotlight-surface {
   .spotlight-surface { transform: none !important; }
   .proof-item, .section-heading, .services-bento, .service-stage,
   .case-carousel-wrap, .process-card, .why-copy, .engagement-card,
-  .testimonial-stage, .faq-item, .contact-section h2, .contact-copy,
+  .testimonial-carousel-wrap, .faq-item, .contact-section h2, .contact-copy,
   .contact-cards, .contact-meta {
     opacity: 1;
     transform: none;
