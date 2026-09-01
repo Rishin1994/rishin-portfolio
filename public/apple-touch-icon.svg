@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="RS">
+  <rect width="180" height="180" rx="40" fill="#060908"/>
+  <rect x="6" y="6" width="168" height="168" rx="34" fill="none" stroke="#c9ff3d" stroke-width="4"/>
+  <text
+    x="90"
+    y="112"
+    text-anchor="middle"
+    font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-size="72"
+    font-weight="700"
+    fill="#c9ff3d"
+    letter-spacing="2"
+  >RS</text>
+</svg>

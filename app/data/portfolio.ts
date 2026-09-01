@@ -157,6 +157,7 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     employer: "Quantiphi",
     year: "2025",
+    diagram: "/diagrams/crm-migration.svg",
   },
   {
     id: "retail-dbt",
@@ -174,6 +175,7 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     employer: "Tredence",
     year: "2021–2024",
+    diagram: "/diagrams/retail-dbt.svg",
   },
   {
     id: "azure-modernization",
@@ -191,6 +193,7 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     employer: "Infosys",
     year: "2017–2021",
+    diagram: "/diagrams/azure-finance.svg",
   },
 ];
 
@@ -250,6 +253,16 @@ export const faqs = [
     question: "What industries have you worked in?",
     answer:
       "CRM/SaaS, retail analytics, and enterprise finance — always on platforms where reliability, cost, and governance matter under real production pressure.",
+  },
+  {
+    question: "How do you contract for US companies?",
+    answer:
+      "I'm available as an independent contractor for remote US work. W-8BEN and related tax paperwork are available on request.",
+  },
+  {
+    question: "How do you work day to day with a US team?",
+    answer:
+      "Architecture decisions and implementation happen in the same engagement. I ship weekly written increments, and I keep practical US-hours overlap from Bengaluru for standups, design reviews, and stakeholder calls.",
   },
 ] as const;
 

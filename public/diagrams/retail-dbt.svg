@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-label="Retail dbt layered architecture diagram">
+  <rect width="720" height="280" fill="#060908"/>
+  <text x="24" y="36" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="14">Retail dbt · governed model layers</text>
+
+  <rect x="40" y="70" width="200" height="160" rx="12" fill="#0e1411" stroke="rgba(255,255,255,0.14)"/>
+  <text x="140" y="104" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-family="ui-monospace, monospace" font-size="12">STAGING</text>
+  <text x="140" y="130" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="16">Raw cleansed</text>
+  <text x="140" y="154" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-family="ui-monospace, monospace" font-size="11">source contracts</text>
+  <text x="140" y="198" text-anchor="middle" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="12">tests on PR</text>
+
+  <path d="M250 150 H286" stroke="#6ee7b7" stroke-width="2"/>
+  <polygon points="286,144 300,150 286,156" fill="#6ee7b7"/>
+
+  <rect x="310" y="70" width="200" height="160" rx="12" fill="#0e1411" stroke="#6ee7b7"/>
+  <text x="410" y="104" text-anchor="middle" fill="#6ee7b7" font-family="ui-monospace, monospace" font-size="12">INTERMEDIATE</text>
+  <text x="410" y="130" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="16">Business logic</text>
+  <text x="410" y="154" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-family="ui-monospace, monospace" font-size="11">materialization std</text>
+  <text x="410" y="198" text-anchor="middle" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="12">CI gates</text>
+
+  <path d="M520 150 H556" stroke="#fbbf24" stroke-width="2"/>
+  <polygon points="556,144 570,150 556,156" fill="#fbbf24"/>
+
+  <rect x="580" y="70" width="110" height="160" rx="12" fill="#0e1411" stroke="#fbbf24"/>
+  <text x="635" y="104" text-anchor="middle" fill="#fbbf24" font-family="ui-monospace, monospace" font-size="12">MARTS</text>
+  <text x="635" y="136" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="15">Self-</text>
+  <text x="635" y="156" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="15">serve</text>
+  <text x="635" y="198" text-anchor="middle" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="11">60%/70%</text>
+</svg>

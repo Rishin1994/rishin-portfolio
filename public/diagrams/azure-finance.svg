@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-label="Azure finance warehouse modernization diagram">
+  <rect width="720" height="280" fill="#060908"/>
+  <text x="24" y="36" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="14">Azure finance · warehouse modernization</text>
+
+  <rect x="24" y="80" width="130" height="56" rx="10" fill="#0e1411" stroke="rgba(255,255,255,0.14)"/>
+  <text x="89" y="114" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="14">Sources</text>
+
+  <path d="M164 108 H210" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="210,102 224,108 210,114" fill="#a78bfa"/>
+
+  <rect x="236" y="68" width="150" height="80" rx="10" fill="#0e1411" stroke="#a78bfa"/>
+  <text x="311" y="100" text-anchor="middle" fill="#a78bfa" font-family="ui-monospace, monospace" font-size="12">ADF</text>
+  <text x="311" y="122" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="14">Ingestion</text>
+
+  <path d="M396 108 H442" stroke="#c9ff3d" stroke-width="2"/>
+  <polygon points="442,102 456,108 442,114" fill="#c9ff3d"/>
+
+  <rect x="468" y="56" width="228" height="104" rx="10" fill="#0e1411" stroke="#c9ff3d"/>
+  <text x="582" y="88" text-anchor="middle" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="12">AZURE SYNAPSE</text>
+  <text x="582" y="112" text-anchor="middle" fill="rgba(255,255,255,0.92)" font-family="ui-sans-serif, system-ui" font-size="14">Dimensional models</text>
+  <text x="582" y="134" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-family="ui-monospace, monospace" font-size="11">distribution-aware + RLS</text>
+
+  <rect x="24" y="196" width="210" height="52" rx="10" fill="#0e1411" stroke="rgba(255,255,255,0.08)"/>
+  <text x="129" y="227" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-family="ui-monospace, monospace" font-size="12">observability</text>
+
+  <rect x="254" y="196" width="210" height="52" rx="10" fill="#0e1411" stroke="rgba(255,255,255,0.08)"/>
+  <text x="359" y="227" text-anchor="middle" fill="rgba(255,255,255,0.72)" font-family="ui-monospace, monospace" font-size="12">Power BI</text>
+
+  <rect x="484" y="196" width="212" height="52" rx="10" fill="#0e1411" stroke="#c9ff3d"/>
+  <text x="590" y="227" text-anchor="middle" fill="#c9ff3d" font-family="ui-monospace, monospace" font-size="12">4x speed · 25% cost · 99.9%</text>
+</svg>
