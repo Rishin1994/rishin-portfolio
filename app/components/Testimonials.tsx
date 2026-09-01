@@ -10,14 +10,12 @@ export function Testimonials() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
-    if (!isInView || testimonials.length === 0) return;
+    if (!isInView) return;
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(timer);
   }, [isInView]);
-
-  if (testimonials.length === 0) return null;
 
   return (
     <section className="section shell" ref={ref}>
