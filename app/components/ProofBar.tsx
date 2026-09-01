@@ -17,9 +17,14 @@ function ProofItem({
 }) {
   const { ref, isInView } = useInView<HTMLDivElement>({ threshold: 0.4 });
   const count = useCountUp({ end: value, decimals, active: isInView });
+  const staticText = `${decimals > 0 ? value.toFixed(decimals) : value}${suffix}`;
 
   return (
-    <div ref={ref} className={`proof-item ${isInView ? "is-visible" : ""}`}>
+    <div
+      ref={ref}
+      className={`proof-item ${isInView ? "is-visible" : ""}`}
+      aria-label={`${staticText} ${label}`}
+    >
       <strong>
         {count}
         {suffix}

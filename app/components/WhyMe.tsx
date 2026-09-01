@@ -15,9 +15,9 @@ export function WhyMe() {
           <p className="section-number">Why me</p>
           <h2>Senior judgment. Delivery momentum. No drama.</h2>
           <p className="why-lead">
-            I&apos;ve led architecture for a 70-member global data engineering coalition. I know
-            what breaks at scale — and I know how to explain it to your CFO without losing your
-            engineers&apos; trust.
+            I&apos;ve led architecture for a 70-member global data engineering coalition at
+            Quantiphi. I know what breaks at scale — and I know how to explain it to your CFO
+            without losing your engineers&apos; trust.
           </p>
           <ul className="philosophy-list">
             {philosophy.map((item) => (

@@ -1,7 +1,39 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { contact, navLinks } from "../data/portfolio";
+import {
+  contact,
+  hasValidLinkedIn,
+  hasValue,
+  navLinks,
+} from "../data/portfolio";
+
+function PrimaryCta({ className, onClick }: { className?: string; onClick?: () => void }) {
+  if (hasValue(contact.calendarUrl)) {
+    return (
+      <a
+        className={className}
+        href={contact.calendarUrl}
+        target="_blank"
+        rel="noreferrer"
+        onClick={onClick}
+      >
+        Book 20 minutes <span aria-hidden="true">↗</span>
+      </a>
+    );
+  }
+
+  return (
+    <a
+      className={className}
+      href={`mailto:${contact.email}?subject=US%20contract%20opportunity`}
+      onClick={onClick}
+    >
+      Email Rishin <span aria-hidden="true">↗</span>
+    </a>
+  );
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,26 +55,32 @@ export function Header() {
   return (
     <>
       <header className={`site-header shell ${scrolled ? "is-scrolled" : ""}`}>
-        <a className="brand" href="#top" aria-label="Rishin S Pradeep, home">
-          <span className="brand-mark">RS</span>
+        <Link className="brand" href="/" aria-label="Rishin S Pradeep, home">
+          {hasValue(contact.photo) ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="brand-photo" src={contact.photo} alt="" width={40} height={40} />
+          ) : (
+            <span className="brand-mark">RS</span>
+          )}
           <span>
             Rishin S Pradeep
             <small>Senior Data Architect</small>
           </span>
-        </a>
+        </Link>
 
         <nav aria-label="Main navigation" className="desktop-nav">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href}>
-              {link.label}
-            </a>
-          ))}
-          <a
-            className="nav-cta magnetic"
-            href={`mailto:${contact.email}?subject=US%20contract%20opportunity`}
-          >
-            Book a call <span aria-hidden="true">↗</span>
-          </a>
+          {navLinks.map((link) =>
+            link.href.startsWith("/#") ? (
+              <a key={link.href} href={link.href}>
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href}>
+                {link.label}
+              </Link>
+            ),
+          )}
+          <PrimaryCta className="nav-cta magnetic" />
         </nav>
 
         <button
@@ -64,17 +102,38 @@ export function Header() {
         aria-hidden={!menuOpen}
       >
         <nav aria-label="Mobile navigation">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
-              {link.label}
+          {navLinks.map((link) =>
+            link.href.startsWith("/#") ? (
+              <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
+                {link.label}
+              </Link>
+            ),
+          )}
+          {hasValidLinkedIn(contact.linkedin) ? (
+            <a
+              href={contact.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMenuOpen(false)}
+            >
+              LinkedIn ↗
             </a>
-          ))}
-          <a
-            href={`mailto:${contact.email}?subject=US%20contract%20opportunity`}
-            onClick={() => setMenuOpen(false)}
-          >
-            Start a conversation ↗
-          </a>
+          ) : null}
+          {hasValue(contact.github) ? (
+            <a
+              href={contact.github}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMenuOpen(false)}
+            >
+              GitHub ↗
+            </a>
+          ) : null}
+          <PrimaryCta onClick={() => setMenuOpen(false)} />
         </nav>
       </div>
     </>

@@ -1,0 +1,16 @@
+---
+description: Conversion-site rules for the Senior Data Architect portfolio — do not restyle or invent proof
+alwaysApply: true
+---
+
+# Portfolio conversion rules
+
+This is a conversion site for a Senior Data Architect selling remote US contracts. Do not restyle it into a generic developer portfolio or purple SaaS theme. Keep `--ink`, `--acid`, Instrument Serif / Manrope / IBM Plex Mono. All copy goes through `app/data/portfolio.ts`. Never invent testimonials, metrics, certifications, or client logos. Never add ChatGPT auth, a database, or extra animation libraries. Prefer server components. If a number is animated, the final number must exist in the HTML before JS runs.
+
+## Freeze
+
+- Years = **9** (Jun 2017–present). Never 8+.
+- 70+ = architecture leadership for a coalition, not 1:1 mentoring.
+- Do not publish `$180K`, healthcare lakehouse, or daily-event volume without sourced credit.
+- Gate LinkedIn behind `hasValidLinkedIn`. Never link the dead slug.
+- Mailto labels are **Email Rishin**, never **Book a call**.

@@ -1,25 +1,51 @@
+/** Dead LinkedIn slug — never render a button for this URL. */
+export const DEAD_LINKEDIN =
+  "https://www.linkedin.com/in/rishin-s-pradeep-28420ba7";
+
+export const siteUrl = "https://rishinspradeep.vercel.app";
+
 export const contact = {
   email: "talktorishin94@gmail.com",
-  phone: "+918825959211",
-  phoneDisplay: "+91 88259 59211",
-  linkedin: "https://www.linkedin.com/in/rishin-s-pradeep-28420ba7",
+  /** Leave empty until a working LinkedIn slug exists. */
+  linkedin: "",
+  github: "https://github.com/Rishin1994",
   resume: "/Rishin-S-Pradeep-Resume.pdf",
+  /** Optional — render buttons only when non-empty. */
+  website: "",
+  calendarUrl: "",
+  photo: "",
+  location: "Bengaluru, India · US-hours overlap",
 } as const;
 
+export function hasValidLinkedIn(url: string | undefined | null): boolean {
+  if (!url?.trim()) return false;
+  return url.trim() !== DEAD_LINKEDIN;
+}
+
+export function hasValue(value: string | undefined | null): boolean {
+  return Boolean(value?.trim());
+}
+
 export const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#work", label: "Case studies" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/#process", label: "Process" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
+/** Freeze years at 9 (Jun 2017–present). Do not invent daily-event volume. */
 export const heroStats = [
   { value: 9, suffix: "+", label: "Years in data architecture" },
-  { value: 40, suffix: "M+", label: "Daily events processed" },
   { value: 3, suffix: "", label: "Fortune-scale migrations led" },
-  { value: 70, suffix: "+", label: "Engineers coached globally" },
+  {
+    value: 70,
+    suffix: "+",
+    label: "Engineers in coalitions led",
+  },
 ] as const;
 
+/** 60% / 70% are from the same retail dbt governance program. */
 export const proofPoints = [
   { value: 60, suffix: "%", label: "Faster dbt model runs" },
   { value: 70, suffix: "%", label: "Fewer production incidents" },
@@ -97,7 +123,24 @@ export const processSteps = [
   },
 ] as const;
 
-export const caseStudies = [
+export type CaseStudy = {
+  id: string;
+  industry: string;
+  title: string;
+  metric: string;
+  metricLabel: string;
+  problem: string;
+  approach: string;
+  result: string;
+  stack: readonly string[];
+  featured: boolean;
+  employer?: string;
+  year?: string;
+  diagram?: string;
+  repoUrl?: string;
+};
+
+export const caseStudies: CaseStudy[] = [
   {
     id: "crm-migration",
     industry: "Global CRM / SaaS",
@@ -111,7 +154,9 @@ export const caseStudies = [
     result:
       "Full migration completed with no production reporting interruption. Query latency dropped 4× on core revenue dashboards. Platform team inherited clean lineage and documented runbooks.",
     stack: ["Snowflake", "Python", "Data Vault 2.0", "GitHub Actions", "dbt"],
-    highlight: true,
+    featured: true,
+    employer: "Quantiphi",
+    year: "2025",
   },
   {
     id: "retail-dbt",
@@ -126,7 +171,9 @@ export const caseStudies = [
     result:
       "60% faster model runs, 70% fewer production incidents, and a self-service layer analysts actually trust. Engineering velocity went up because deploys stopped being scary.",
     stack: ["Snowflake", "dbt Cloud", "Airflow", "Power BI"],
-    highlight: false,
+    featured: true,
+    employer: "Tredence",
+    year: "2021–2024",
   },
   {
     id: "azure-modernization",
@@ -141,63 +188,28 @@ export const caseStudies = [
     result:
       "4× query performance improvement, 25% infrastructure cost reduction, and 99.9% uptime over 12 months. Passed internal audit on first review.",
     stack: ["Azure Synapse", "ADF", "T-SQL", "Power BI", "Terraform"],
-    highlight: false,
+    featured: true,
+    employer: "Infosys",
+    year: "2017–2021",
   },
-  {
-    id: "finops-rescue",
-    industry: "E-Commerce",
-    title: "Snowflake bill cut $180K/year — same workloads.",
-    metric: "$180K",
-    metricLabel: "annual savings",
-    problem:
-      "An e-commerce data team watched Snowflake spend triple in eight months. Auto-suspend was off, warehouses were oversized, and ad-hoc queries ran unbounded against raw tables.",
-    approach:
-      "Ran a two-week FinOps audit: tagged workloads by team, right-sized warehouses, moved 40% of queries to pre-aggregated marts, implemented query timeouts and resource monitors, and trained analysts on cost-aware patterns.",
-    result:
-      "$180K annual savings with identical SLA delivery. Finance signed off on continued Snowflake investment. Team adopted a weekly cost review ritual.",
-    stack: ["Snowflake", "dbt", "Resource Monitors", "FinOps"],
-    highlight: false,
-  },
-  {
-    id: "lakehouse-healthcare",
-    industry: "Healthcare / Life Sciences",
-    title: "Governed lakehouse from scratch in 14 weeks.",
-    metric: "14",
-    metricLabel: "weeks to production",
-    problem:
-      "A healthcare analytics team needed a Databricks lakehouse for clinical and operational data — but had no Unity Catalog, no medallion standards, and regulatory pressure on data access.",
-    approach:
-      "Architected bronze/silver/gold medallion layers on Delta Lake, implemented Unity Catalog RBAC, built PySpark ingestion with data quality gates, and documented every mapping for compliance review.",
-    result:
-      "Production lakehouse live in 14 weeks. First cross-domain analytics dashboard shipped week 16. Passed internal governance review with zero findings.",
-    stack: ["Databricks", "Delta Lake", "Unity Catalog", "PySpark", "Airflow"],
-    highlight: false,
-  },
-] as const;
+];
 
-export const testimonials = [
-  {
-    quote:
-      "Rishin didn't just migrate us to Snowflake — he made our entire data team faster. The governance patterns he left behind are still how we work two years later.",
-    name: "Sarah Chen",
-    role: "VP of Data & Analytics",
-    company: "Mid-market SaaS (US)",
-  },
-  {
-    quote:
-      "We brought him in when our Snowflake bill was out of control. Two weeks later we had a plan. Two months later we'd saved more than his entire contract cost.",
-    name: "Marcus Webb",
-    role: "Director of Engineering",
-    company: "E-Commerce Platform (US)",
-  },
-  {
-    quote:
-      "What stands out is how he communicates with non-technical stakeholders. Architecture decisions came with clear tradeoffs — our CFO actually understood the roadmap.",
-    name: "Priya Nair",
-    role: "Head of Business Intelligence",
-    company: "Global Retail (US/EU)",
-  },
-] as const;
+export const featuredCaseStudies = caseStudies.filter((study) => study.featured);
+
+/**
+ * Replace with permissioned quotes only.
+ * Do not invent names, companies, or testimonials.
+ *
+ * export const testimonials = [
+ *   {
+ *     quote: "...",
+ *     name: "First name only until permission for full name",
+ *     role: "Title",
+ *     company: "Company type (US)",
+ *   },
+ * ];
+ */
+export const testimonials: readonly never[] = [];
 
 export const faqs = [
   {
@@ -223,12 +235,12 @@ export const faqs = [
   {
     question: "How quickly can you start?",
     answer:
-      "Immediately. I'm available for remote US contracts now. Send the role, the problem, and expected overlap — I'll respond with a direct view on fit within 24 hours.",
+      "Immediately. I'm available for remote US contracts now. Send the role, the problem, and expected overlap — I'll reply with a direct view on fit within 24 hours.",
   },
   {
     question: "What industries have you worked in?",
     answer:
-      "CRM/SaaS, retail, finance, e-commerce, and healthcare/life sciences — always on platforms where reliability, cost, and governance matter under real production pressure.",
+      "CRM/SaaS, retail analytics, and enterprise finance — always on platforms where reliability, cost, and governance matter under real production pressure.",
   },
 ] as const;
 
@@ -274,4 +286,51 @@ export const philosophy = [
   { icon: "→", text: "Written tradeoffs, not mystery decisions" },
   { icon: "→", text: "Ship weekly — no six-month black boxes" },
   { icon: "→", text: "Your team owns it when I leave" },
+] as const;
+
+export const publicWork = [
+  {
+    name: "azure-medallion-university-chapters",
+    url: "https://github.com/Rishin1994/azure-medallion-university-chapters",
+    description:
+      "Medallion Bronze→Silver→Gold on Azure with DQ quarantine, product contract, and tests.",
+  },
+  {
+    name: "datavault-implementation",
+    url: "https://github.com/Rishin1994/datavault-implementation",
+    description: "Data Vault 2.0 implementation patterns that support the migration claim on this site.",
+  },
+  {
+    name: "automate-dv-demo-5.4",
+    url: "https://github.com/Rishin1994/automate-dv-demo-5.4",
+    description: "AutomateDV demo work — companion proof for Data Vault delivery.",
+  },
+] as const;
+
+export const aboutBio = `I'm Rishin — a Senior Data Architect available for remote US contracts. I make architecture decisions and implement them myself: migrations, FinOps, governed dbt estates, and platform leadership for teams that cannot afford a handoff gap between strategy and code.
+
+I've led architecture for a 70-member global data engineering coalition at Quantiphi, modernized retail analytics platforms at Tredence, and rebuilt finance warehouses at Infosys. I work in weekly increments, write tradeoffs down, and leave teams owning the result.`;
+
+export const employerTimeline = [
+  {
+    company: "Quantiphi",
+    role: "Senior Data Architect",
+    period: "2025–present",
+    summary:
+      "Architecture leadership for large-scale CRM/SaaS migration programs — Snowflake, Data Vault 2.0, zero-downtime cutover paths.",
+  },
+  {
+    company: "Tredence",
+    role: "Data Architect",
+    period: "2021–2024",
+    summary:
+      "Governed dbt estates, retail analytics platforms, and delivery patterns for squads shipping under SLA pressure.",
+  },
+  {
+    company: "Infosys",
+    role: "Data Engineer → Senior roles",
+    period: "2017–2021",
+    summary:
+      "Azure warehouse modernization, performance and cost work, and production platforms for enterprise finance.",
+  },
 ] as const;

@@ -1,24 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { caseStudies } from "../data/portfolio";
+import Link from "next/link";
+import { featuredCaseStudies } from "../data/portfolio";
 import { useInView } from "../hooks/useInView";
 import { SpotlightSurface } from "./SpotlightSurface";
 
-const accents = ["#c9ff3d", "#6ee7b7", "#fbbf24", "#fb7185", "#a78bfa"];
+const accents = ["#c9ff3d", "#6ee7b7", "#fbbf24"];
 
 export function CaseStudies() {
   const { ref, isInView } = useInView({ threshold: 0.04 });
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-
-  const scrollTo = (index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const slides = track.querySelectorAll<HTMLElement>(".case-slide");
-    slides[index]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    setActive(index);
-  };
 
   return (
     <section className="section" id="work" ref={ref}>
@@ -29,46 +19,19 @@ export function CaseStudies() {
             <h2>Proof, not promises.</h2>
           </div>
           <p>
-            Drag or click through real migration, cost, and platform scenarios. Hover each card —
-            the spotlight follows your cursor.
+            Three engagements mapped to real delivery — migration, governance, and warehouse
+            modernization. Open any study for the full Problem → Approach → Result.
           </p>
         </div>
-      </div>
 
-      <div
-        className={`case-carousel-wrap ${isInView ? "is-visible" : ""}`}
-        ref={trackRef}
-        onScroll={(event) => {
-          const track = event.currentTarget;
-          const slides = Array.from(track.querySelectorAll<HTMLElement>(".case-slide"));
-          const center = track.scrollLeft + track.clientWidth / 2;
-          let closest = 0;
-          let minDistance = Infinity;
-          slides.forEach((slide, index) => {
-            const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
-            const distance = Math.abs(center - slideCenter);
-            if (distance < minDistance) {
-              minDistance = distance;
-              closest = index;
-            }
-          });
-          setActive(closest);
-        }}
-      >
-        <div className="case-carousel">
-          {caseStudies.map((study, index) => (
+        <div className={`case-grid ${isInView ? "is-visible" : ""}`}>
+          {featuredCaseStudies.map((study, index) => (
             <SpotlightSurface
               key={study.id}
               as="article"
               accent={accents[index % accents.length]}
-              active={active === index}
-              className="case-slide"
-              onClick={() => scrollTo(index)}
+              className="case-card"
             >
-              <span className="case-watermark" aria-hidden="true">
-                {study.metric}
-              </span>
-
               <div className="case-slide-top">
                 <span className="case-industry">{study.industry}</span>
                 <span className="case-index">0{index + 1}</span>
@@ -81,45 +44,25 @@ export function CaseStudies() {
 
               <h3>{study.title}</h3>
 
-              <div className="case-par-grid">
-                <div className="case-par">
-                  <span>Problem</span>
-                  <p>{study.problem}</p>
-                </div>
-                <div className="case-par">
-                  <span>Approach</span>
-                  <p>{study.approach}</p>
-                </div>
-                <div className="case-par case-par-result">
-                  <span>Result</span>
-                  <p>{study.result}</p>
-                </div>
-              </div>
+              <p className="case-card-excerpt">{study.result}</p>
 
               <div className="tag-list">
-                {study.stack.map((tech) => (
+                {study.stack.slice(0, 4).map((tech) => (
                   <span key={tech}>{tech}</span>
                 ))}
               </div>
+
+              <Link className="case-card-link magnetic" href={`/work/${study.id}`}>
+                Read case study <span aria-hidden="true">↗</span>
+              </Link>
             </SpotlightSurface>
           ))}
         </div>
-      </div>
 
-      <div className="shell">
-        <div className="case-dots" aria-label="Case study navigation">
-          {caseStudies.map((study, index) => (
-            <button
-              key={study.id}
-              type="button"
-              className={active === index ? "is-active" : ""}
-              aria-label={`View: ${study.title}`}
-              onClick={() => scrollTo(index)}
-            >
-              <span className="case-dot-label">{study.industry}</span>
-              <span className="case-dot-metric">{study.metric}</span>
-            </button>
-          ))}
+        <div className={`case-grid-footer ${isInView ? "is-visible" : ""}`}>
+          <Link className="button button-ghost magnetic" href="/work">
+            All work <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </div>
     </section>
