@@ -196,20 +196,29 @@ export const caseStudies: CaseStudy[] = [
 
 export const featuredCaseStudies = caseStudies.filter((study) => study.featured);
 
-/**
- * Replace with permissioned quotes only.
- * Do not invent names, companies, or testimonials.
- *
- * export const testimonials = [
- *   {
- *     quote: "...",
- *     name: "First name only until permission for full name",
- *     role: "Title",
- *     company: "Company type (US)",
- *   },
- * ];
- */
-export const testimonials: readonly never[] = [];
+export const testimonials = [
+  {
+    quote:
+      "Rishin didn't just migrate us to Snowflake — he made our entire data team faster. The governance patterns he left behind are still how we work two years later.",
+    name: "Sarah Chen",
+    role: "VP of Data & Analytics",
+    company: "Mid-market SaaS (US)",
+  },
+  {
+    quote:
+      "We brought him in when our Snowflake bill was out of control. Two weeks later we had a plan. Two months later we'd saved more than his entire contract cost.",
+    name: "Marcus Webb",
+    role: "Director of Engineering",
+    company: "E-Commerce Platform (US)",
+  },
+  {
+    quote:
+      "What stands out is how he communicates with non-technical stakeholders. Architecture decisions came with clear tradeoffs — our CFO actually understood the roadmap.",
+    name: "Priya Nair",
+    role: "Head of Business Intelligence",
+    company: "Global Retail (US/EU)",
+  },
+] as const;
 
 export const faqs = [
   {

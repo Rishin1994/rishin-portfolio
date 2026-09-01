@@ -8,6 +8,7 @@ import { ProofBar } from "./components/ProofBar";
 import { PublicProof } from "./components/PublicProof";
 import { Services } from "./components/Services";
 import { StackMarquee } from "./components/StackMarquee";
+import { Testimonials } from "./components/Testimonials";
 import { WhyMe } from "./components/WhyMe";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <CaseStudies />
         <Process />
         <WhyMe />
+        <Testimonials />
         <PublicProof />
         <FAQ />
         <StackMarquee />
