@@ -18,7 +18,7 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). The dev server runs on port `3000` by default.
 
 ## Build
 
